@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.time.Duration;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -39,10 +40,10 @@ public class UserController {
     @Resource
     private UserMapper userMapper;
 
-    //限制用户登录错误的次数为5次
-    private static int a = 6;
+
     /**
      * 验证用户登录
+     *
      * @param user 要验证的用户
      * @return 登录成功/失败
      */
@@ -72,18 +73,17 @@ public class UserController {
                 return new JsonResult<Object>(Code.ERROR, "密码不能为空");
             case 3:
             case 4:
-                do {
-                    //每次进入循环登录错误次数就减一
-                    a--;
-                    //进入if表示数据库不存在此电话号码
-                    if (users != null) {
-                        //限制用户登录错误次数
-                        logInErrTime(users.getPhone());
-                        stringRedisTemplate.opsForValue().increment("logInErr:" + users.getPhone());
-                        return new JsonResult<Object>(Code.ERROR, "你还有" + a + "次密码输入错误的机会");
-                    }
-                    return new JsonResult<Object>(Code.ERROR, "用户名或密码错误");
-                }while (true);
+                //进入if表示数据库不存在此电话号码
+                if (users != null) {
+                    //限制用户登录错误次数
+                    logInErrTime(users.getPhone());
+                    Long a = stringRedisTemplate.opsForValue().increment("logInErr:" + users.getPhone());
+                    //限制用户登录错误的次数为5次
+                    Long b = 6L;
+                    //每次可以登录的次数减一
+                    long c = b - a;
+                    return new JsonResult<Object>(Code.ERROR, "用户名或密码错误,你还有" + c + "次密码输入错误的机会");
+                }
 
         }
 
@@ -103,21 +103,22 @@ public class UserController {
 
     /**
      * 设置用户登录错误的时间 为明天0点0分0面减去当前时间
+     *
      * @param phone 登录错误的电话号码
      */
-    private void logInErrTime(String phone){
+    private void logInErrTime(String phone) {
         Calendar calendar = Calendar.getInstance();
         //设置秒为0
-        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.SECOND, 0);
         //设置分钟为0
-        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.MINUTE, 0);
         //设置小时为0
-        calendar.set(Calendar.HOUR,0);
+        calendar.set(Calendar.HOUR, 0);
         //在当前天数加1天
-        calendar.add(Calendar.DAY_OF_MONTH,1);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
         //将时间单位毫秒转换成秒
         Duration duration = Duration.ofSeconds(calendar.getTimeInMillis() / 1000 - System.currentTimeMillis() / 1000);
         //设置超时时间 单位是秒
-        stringRedisTemplate.expire("logInErr:" + phone,duration);
+        stringRedisTemplate.expire("logInErr:" + phone, duration);
     }
 }
