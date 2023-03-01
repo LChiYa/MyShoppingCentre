@@ -141,7 +141,6 @@ public class UserController {
         //2表示两次密码不一致
         //3表示电话号码长度错误
         //4表示要注册的用户已经存在
-        //5表示注册成功
         int num = userService.enrollUser(user,confirmPassword);
         switch (num){
             case 0:
@@ -155,6 +154,7 @@ public class UserController {
             case 4:
                  return new JsonResult<Object>(Code.ERROR, "用户已经注册");
         }
+        //注册成功
         return new JsonResult<Object>(Code.OK, "注册成功");
     }
 }
