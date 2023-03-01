@@ -39,9 +39,6 @@
   <insert id="insertSelective" parameterType="com.hsd.model.User">
     insert into u_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="phone != null">
         phone,
       </if>
@@ -53,9 +50,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="phone != null">
         #{phone,jdbcType=CHAR},
       </if>

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.time.Duration;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @ClassName UserController
@@ -97,8 +95,15 @@ public class UserController {
         if (users != null) {
             stringRedisTemplate.delete("logInErr:" + users.getPhone());
         }
+        //将token和用户信息存到Map集合中
+        Map<String,Object> map = new HashMap<>();
+        map.put("token",token);
+        assert users != null;
+        map.put("phone",users.getPhone());
+        map.put("nickName",users.getNickName());
+        map.put("id",users.getId());
         //登录成功
-        return new JsonResult<Object>(Code.OK, "登录成功", user);
+        return new JsonResult<Object>(Code.OK, "登录成功", map);
     }
 
     /**
@@ -120,5 +125,36 @@ public class UserController {
         Duration duration = Duration.ofSeconds(calendar.getTimeInMillis() / 1000 - System.currentTimeMillis() / 1000);
         //设置超时时间 单位是秒
         stringRedisTemplate.expire("logInErr:" + phone, duration);
+    }
+
+    /**
+     * 注册请求
+     * @param user 要注册的用户
+     * @param confirmPassword 确认密码
+     * @return 注册成功/失败
+     */
+    @PostMapping("/enroll")
+    public Object enroll(User user,String confirmPassword){
+        //认证用户的各项字段是否符合标准 并返回
+        //0表示电话号码为空
+        //1表示密码为空
+        //2表示两次密码不一致
+        //3表示电话号码长度错误
+        //4表示要注册的用户已经存在
+        //5表示注册成功
+        int num = userService.enrollUser(user,confirmPassword);
+        switch (num){
+            case 0:
+                 return new JsonResult<Object>(Code.ERROR, "电话号码不能为空");
+            case 1:
+                 return new JsonResult<Object>(Code.ERROR, "密码不能为空");
+            case 2:
+                 return new JsonResult<Object>(Code.ERROR, "两次密码不一致");
+            case 3:
+                 return new JsonResult<Object>(Code.ERROR, "电话号码长度错误");
+            case 4:
+                 return new JsonResult<Object>(Code.ERROR, "用户已经注册");
+        }
+        return new JsonResult<Object>(Code.OK, "注册成功");
     }
 }

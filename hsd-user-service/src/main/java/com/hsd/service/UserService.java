@@ -9,4 +9,6 @@ import com.hsd.model.User;
  */
 public interface UserService {
     int selectUserByPhone(User user);
+
+    int enrollUser(User user, String confirmPassword);
 }
