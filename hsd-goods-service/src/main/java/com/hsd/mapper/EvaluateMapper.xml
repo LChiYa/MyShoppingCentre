@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsd.mapper.EvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.hsd.model.Evaluate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hsd.model.Evaluate">
+    <result column="time" jdbcType="LONGVARCHAR" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, content, score, user_id, goods_id
+  </sql>
+  <sql id="Blob_Column_List">
+    time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from g_evaluate
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from g_evaluate
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hsd.model.Evaluate">
+    insert into g_evaluate (id, content, score, 
+      user_id, goods_id, time
+      )
+    values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+      #{userId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, #{time,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsd.model.Evaluate">
+    insert into g_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsd.model.Evaluate">
+    update g_evaluate
+    <set>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hsd.model.Evaluate">
+    update g_evaluate
+    set content = #{content,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      time = #{time,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsd.model.Evaluate">
+    update g_evaluate
+    set content = #{content,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

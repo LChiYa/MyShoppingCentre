@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/MyShoppingCentre.iml" filepath="$PROJECT_DIR$/.idea/MyShoppingCentre.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hsd-commons/hsd-commons.iml" filepath="$PROJECT_DIR$/hsd-commons/hsd-commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hsd-eureka-service/hsd-eureka-service.iml" filepath="$PROJECT_DIR$/hsd-eureka-service/hsd-eureka-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hsd-goods-service/hsd-goods-service.iml" filepath="$PROJECT_DIR$/hsd-goods-service/hsd-goods-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hsd-orders-service/hsd-orders-service.iml" filepath="$PROJECT_DIR$/hsd-orders-service/hsd-orders-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hsd-user-service/hsd-user-service.iml" filepath="$PROJECT_DIR$/hsd-user-service/hsd-user-service.iml" />
+    </modules>
+  </component>
+</project>

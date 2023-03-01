@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hsd-commons" />
+        <module name="hsd-user-service" />
+        <module name="hsd-goods-service" />
+        <module name="hsd-eureka-service" />
+        <module name="hsd-orders-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hsd-commons" target="1.8" />
+      <module name="hsd-eureka-service" target="1.8" />
+      <module name="hsd-goods-service" target="1.8" />
+      <module name="hsd-orders-service" target="1.8" />
+      <module name="hsd-user-service" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hsd-eureka-service" options="-parameters" />
+      <module name="hsd-goods-service" options="-parameters" />
+      <module name="hsd-orders-service" options="-parameters" />
+      <module name="hsd-user-service" options="-parameters" />
+    </option>
+  </component>
+</project>
