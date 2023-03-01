@@ -17,22 +17,21 @@ class HsdUserServiceApplicationTests {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-//    private static long a;
-//    static {
-//        a = 5;
-//    }
+    private static String a = "5";
+
     @Test
     public void contextLoads() {
-//        Duration duration = Duration.ofSeconds(1);
-//        stringRedisTemplate.opsForValue().set("logInErr:" + 123,a,duration);
+//        String a = "5";
+        stringRedisTemplate.opsForValue().set("logInErr:" + 123, a);
 //        stringRedisTemplate.opsForValue().setIfAbsent()
-//        Long decrement = stringRedisTemplate.opsForValue().decrement("logInErr:" + 123);
-        for (int a = 5; a >= 1; a--) {
-            if (a-- < a) {
-                System.out.println(a);
-            }
-        }
-//        System.out.println("a = " + a);
+//        Long increment;
+        Long increment;
+        do {
+//            increment = stringRedisTemplate.opsForValue().increment("logInErr:" + 123);
+            increment = stringRedisTemplate.opsForValue().decrement("logInErr:" + 123);
+            System.out.println("decrement = " + increment);
+        }while (increment > 0);
+
     }
 
 
