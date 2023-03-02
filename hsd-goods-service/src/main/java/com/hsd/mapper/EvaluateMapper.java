@@ -21,13 +21,13 @@ public interface EvaluateMapper {
 
     int updateByPrimaryKey(Evaluate record);
 
-    Long countEvaluateInfo(String goodsId, String evaluationLevel);
+    Long countEvaluateInfo(Long goodsId, String evaluationLevel);
 
-    List<Evaluate> findAllProductReviewsByGoodsId(Long skipNum, Long pageSize, String evaluationLevel, String goodsId);
+    List<Evaluate> findAllProductReviewsByGoodsId(Long skipNum, Long pageSize, String evaluationLevel, Long goodsId);
 
-    Long countEvaluateInfoImg(String goodsId);
+    Long countEvaluateInfoImg(Long goodsId);
 
-    List<Evaluate> findAllProductReviewsByGoodsIdImg(Long skipNum, Long pageSize, String goodsId);
+    List<Evaluate> findAllProductReviewsByGoodsIdImg(Long skipNum, Long pageSize, Long goodsId);
 
-    LinkedHashMap<String,String> countEvaluateNum(String goodsId);
+    LinkedHashMap<String,String> countEvaluateNum(Long goodsId);
 }

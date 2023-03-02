@@ -5,7 +5,6 @@ import com.hsd.model.Evaluate;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName GoodsService
@@ -13,7 +12,7 @@ import java.util.Map;
  * @Author:
  */
 public interface GoodsService {
-    PageBean<List<Evaluate>> selectEvaluateByGoodsId(Long pageNo, Long pageSize, String evaluationLevel, String goodsId);
+    PageBean<List<Evaluate>> selectEvaluateByGoodsId(Long pageNo, Long pageSize, String evaluationLevel, Long goodsId);
 
-    LinkedHashMap<String,String> countEvaluateNum(String goodsId);
+    LinkedHashMap<String,String> countEvaluateNum(Long goodsId);
 }

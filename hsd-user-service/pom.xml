@@ -64,6 +64,12 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
         <!--通用模块，需要事先安装到maven本地库 -->
         <dependency>
             <groupId>com.hsd</groupId>

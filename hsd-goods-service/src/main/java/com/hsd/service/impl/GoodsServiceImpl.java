@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName GoodsServiceImpl
@@ -27,14 +26,14 @@ public class GoodsServiceImpl implements GoodsService {
      * 根据商品ID查询商品评价信息
      * @param pageNo          第几页
      * @param pageSize        一页显示几个
-     * @param evaluationLevel 评价等级 A好评 B中评 C差评
+     * @param evaluationLevel 评价等级 A好评 B中评 C差评 img 带图评价
      * @param goodsId         商品id
      * @return {@link PageBean}<{@link List}<{@link Evaluate}>> 查询到的商品评价信息
      */
     @Override
-        public PageBean<List<Evaluate>> selectEvaluateByGoodsId(Long pageNo, Long pageSize, String evaluationLevel, String goodsId) {
+        public PageBean<List<Evaluate>> selectEvaluateByGoodsId(Long pageNo, Long pageSize, String evaluationLevel, Long goodsId) {
         //创建PageBean对象
-        PageBean pageBean = new PageBean<>(pageNo,pageSize);
+        PageBean<List<Evaluate>> pageBean = new PageBean<>(pageNo,pageSize);
         if (evaluationLevel.equals("img")) {
             //先根据商品id查询查询出有图商品评价一共与多少条评价
             Long totalNum = evaluateMapper.countEvaluateInfoImg(goodsId);
@@ -63,7 +62,7 @@ public class GoodsServiceImpl implements GoodsService {
      * @return {@link List}<{@link String}> 统计到的各种评价数量
      */
     @Override
-    public LinkedHashMap<String,String> countEvaluateNum(String goodsId) {
+    public LinkedHashMap<String,String> countEvaluateNum(Long goodsId) {
         return evaluateMapper.countEvaluateNum(goodsId);
     }
 }

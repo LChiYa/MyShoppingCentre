@@ -1,16 +1,14 @@
 package com.hsd.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.hsd.Code;
 import com.hsd.JsonResult;
 import com.hsd.mapper.UserMapper;
 import com.hsd.model.User;
 import com.hsd.service.UserService;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.Duration;
@@ -156,5 +154,22 @@ public class UserController {
         }
         //注册成功
         return new JsonResult<Object>(Code.OK, "注册成功");
+    }
+
+    @GetMapping("/getUserId")
+    public Object getUserId(String token){
+                //获取Redis中的用户登录的状态
+        String userToken = stringRedisTemplate.opsForValue().get("UserToken:" + token);
+        //进入if表示用户没有登录
+        if (userToken == null){
+            return new JsonResult<Object>(Code.NO_LOGIN,"");
+        }
+        //到这里表示用户已经登录 重新设置超时时间为60分钟
+        Duration duration = Duration.ofSeconds(60 * 60);
+        stringRedisTemplate.expire("UserToken:" + token,duration);
+        //获取用户的id
+        long userId = JSONObject.parseObject(userToken).getBigInteger("id").longValue();
+        //返回获取到的用户id
+        return new JsonResult<Object>(Code.OK,userId);
     }
 }
