@@ -21,6 +21,14 @@ public class GoodsServiceImpl implements GoodsService {
     private EvaluateMapper evaluateMapper;
 
 
+    /**
+     * 根据商品ID查询商品评价信息
+     * @param pageNo          第几页
+     * @param pageSize        一页显示几个
+     * @param evaluationLevel 评价等级 A好评 B中评 C差评
+     * @param goodsId         商品id
+     * @return {@link PageBean}<{@link List}<{@link Evaluate}>> 查询到的商品评价信息
+     */
     @Override
         public PageBean<List<Evaluate>> selectEvaluateByGoodsId(Long pageNo, Long pageSize, String evaluationLevel, String goodsId) {
         //创建PageBean对象
