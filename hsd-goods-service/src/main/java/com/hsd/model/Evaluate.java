@@ -1,5 +1,8 @@
 package com.hsd.model;
 
+import java.security.PrivateKey;
+import java.util.List;
+
 public class Evaluate {
     private Long id;
 
@@ -12,6 +15,11 @@ public class Evaluate {
     private Long goodsId;
 
     private String time;
+    private String phone;
+    private String nickName;
+    private String headPortrait;
+
+    private List<EvaluateImg> evaluateImg;
 
     public Long getId() {
         return id;
@@ -59,5 +67,37 @@ public class Evaluate {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
+
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
+
+    public List<EvaluateImg> getEvaluateImg() {
+        return evaluateImg;
+    }
+
+    public void setEvaluateImg(List<EvaluateImg> evaluateImg) {
+        this.evaluateImg = evaluateImg;
     }
 }

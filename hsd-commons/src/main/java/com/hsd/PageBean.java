@@ -39,7 +39,7 @@ public class PageBean<T> {
             return;
         }
         this.pageCount = totalNum / pageSize;
-        if (totalNum % pageSize > 1) {
+        if (totalNum % pageSize >= 1) {
             this.pageCount++;
         }
     }

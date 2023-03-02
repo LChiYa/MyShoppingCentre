@@ -2,6 +2,8 @@ package com.hsd.mapper;
 
 import com.hsd.model.Evaluate;
 
+import java.util.List;
+
 public interface EvaluateMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -16,4 +18,8 @@ public interface EvaluateMapper {
     int updateByPrimaryKeyWithBLOBs(Evaluate record);
 
     int updateByPrimaryKey(Evaluate record);
+
+    Long countEvaluateInfo(String goodsId, String evaluationLevel);
+
+    List<Evaluate> findAllProductReviewsByGoodsId(Long skipNum, Long pageSize, String evaluationLevel, String goodsId);
 }

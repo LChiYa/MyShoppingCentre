@@ -7,6 +7,16 @@
     <result column="score" jdbcType="INTEGER" property="score" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <collection property="evaluateImg"
+                ofType="com.hsd.model.EvaluateImg"
+                column="{evaluateId=id}"
+                select="selectGoodsEvaluateImg"
+    >
+    </collection>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hsd.model.Evaluate">
     <result column="time" jdbcType="LONGVARCHAR" property="time" />
@@ -18,22 +28,86 @@
     time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from g_evaluate
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <!-- 根据商品id查询商品评级信息的总条数 开始 -->
+  <select id="countEvaluateInfo" resultType="java.lang.Long">
+    select
+        count(*)
+    from
+        g_evaluate
+    where
+        goods_id = #{goodsId}
+      <if test='evaluationLevel == "A"'>
+          and score between 4 and 5
+      </if>
+      <if test='evaluationLevel == "B"'>
+          and score = 3
+      </if>
+      <if test='evaluationLevel == "C"'>
+          and score between 1 and 2
+      </if>
+  </select>
+  <!-- 根据商品id查询商品评级信息的总条数 结束 -->
+
+  <!-- 根据商品id查询商品所有商品评价信息 开始 -->
+  <select id="findAllProductReviewsByGoodsId" resultType="java.util.List" resultMap="BaseResultMap">
+    select
+        ge.*,u.phone,u.nick_name,ui.head_portrait
+    from
+        g_evaluate
+    as
+        ge
+    inner join
+        u_user
+    as
+        u
+    on
+        ge.user_id = u.id
+    left join
+        u_user_info
+    as
+        ui
+    on
+        u.id = ui.user_id
+    where
+        ge.goods_id = #{goodsId}
+      <if test='evaluationLevel == "A"'>
+         and score between 4 and 5
+      </if>
+      <if test='evaluationLevel == "B"'>
+          and score = 3
+      </if>
+      <if test='evaluationLevel == "C"'>
+          and score between 1 and 2
+      </if>
+    limit
+        ${skipNum},${pageSize}
+
+  </select>
+  <!-- 根据商品id查询商品所有商品评价信息 结束 -->
+
+  <!-- 查询商品的有图评价 开始 -->
+    <select id="selectGoodsEvaluateImg" resultType="com.hsd.model.EvaluateImg">
+        select image_url as imageUrl from g_evaluate_img where evaluate_id = #{evaluateId}
+    </select>
+  <!-- 查询商品的有图评价 结束 -->
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from g_evaluate
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.hsd.model.Evaluate">
-    insert into g_evaluate (id, content, score, 
+    insert into g_evaluate (id, content, score,
       user_id, goods_id, time
       )
-    values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER},
       #{userId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, #{time,jdbcType=LONGVARCHAR}
       )
   </insert>

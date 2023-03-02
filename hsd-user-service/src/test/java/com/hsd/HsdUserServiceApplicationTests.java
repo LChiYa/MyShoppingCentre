@@ -1,5 +1,6 @@
 package com.hsd;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.hsd.mapper.UserMapper;
 import com.hsd.model.User;
 import org.junit.jupiter.api.Test;
@@ -11,27 +12,25 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.time.Duration;
 
-@SpringBootTest
+//@SpringBootTest
 class HsdUserServiceApplicationTests {
 
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
-
-    private static String a = "5";
 
     @Test
     public void contextLoads() {
-//        String a = "5";
-        stringRedisTemplate.opsForValue().set("logInErr:" + 123, a);
-//        stringRedisTemplate.opsForValue().setIfAbsent()
-//        Long increment;
-        Long increment;
-        do {
-//            increment = stringRedisTemplate.opsForValue().increment("logInErr:" + 123);
-            increment = stringRedisTemplate.opsForValue().decrement("logInErr:" + 123);
-            System.out.println("decrement = " + increment);
-        }while (increment > 0);
 
+        String where =  " and head." + "query" + " like '%" +  "queryV" + "%'";
+        String sort = "1,2,3,4,5,6,7,8";
+        String[] s = sort.split(",");
+        for (int i = 0; i < s.length; i++) {
+            String a = s[i].replace(","," ");
+            if(i != 0) {
+                where = where + " order by head." + a;
+            }else {
+                where += "," + a;
+            }
+        }
+        System.out.println("where = " + where);
     }
 
 
