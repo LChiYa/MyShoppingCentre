@@ -2,7 +2,9 @@ package com.hsd.mapper;
 
 import com.hsd.model.Evaluate;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface EvaluateMapper {
     int deleteByPrimaryKey(Long id);
@@ -26,4 +28,6 @@ public interface EvaluateMapper {
     Long countEvaluateInfoImg(String goodsId);
 
     List<Evaluate> findAllProductReviewsByGoodsIdImg(Long skipNum, Long pageSize, String goodsId);
+
+    LinkedHashMap<String,String> countEvaluateNum(String goodsId);
 }

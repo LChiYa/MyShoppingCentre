@@ -7,7 +7,9 @@ import com.hsd.service.GoodsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName GoodsServiceImpl
@@ -53,5 +55,15 @@ public class GoodsServiceImpl implements GoodsService {
             pageBean.setData(listPageBean);
         }
         return pageBean;
+    }
+
+    /**
+     * 统计各种评价数量
+     * @param goodsId 商品id
+     * @return {@link List}<{@link String}> 统计到的各种评价数量
+     */
+    @Override
+    public LinkedHashMap<String,String> countEvaluateNum(String goodsId) {
+        return evaluateMapper.countEvaluateNum(goodsId);
     }
 }

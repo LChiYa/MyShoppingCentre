@@ -169,6 +169,16 @@
   </select>
   <!-- 查询带图评价 结束 -->
 
+  <!-- 统计好、中、查、带图评价 开始 -->
+  <select id="countEvaluateNum" resultType="java.util.LinkedHashMap">
+    select
+      (select count(*) from g_evaluate where goods_id = #{goodsId} and score between 4 and 5) as A,
+      (select count(*) from g_evaluate where goods_id = #{goodsId} and score = 3) as B,
+      (select count(*) from g_evaluate where goods_id = #{goodsId} and score between 1 and 2) as C,
+      (select count(e.id) from g_evaluate as e inner join (select evaluate_id from g_evaluate_img group by evaluate_id) as img on e.id = img.evaluate_id where goods_id = #{goodsId}) as img
+  </select>
+  <!-- 统计好、中、查、带图评价 结束 -->
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from g_evaluate
     where id = #{id,jdbcType=BIGINT}
