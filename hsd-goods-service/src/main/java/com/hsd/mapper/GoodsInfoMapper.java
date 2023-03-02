@@ -14,4 +14,6 @@ public interface GoodsInfoMapper {
     int updateByPrimaryKeySelective(GoodsInfo record);
 
     int updateByPrimaryKey(GoodsInfo record);
+
+    int reduceInventory(Long goodsId, Integer buyNum);
 }
