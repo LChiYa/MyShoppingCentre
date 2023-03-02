@@ -2,6 +2,8 @@ package com.hsd.mapper;
 
 import com.hsd.model.GoodsInfo;
 
+import java.math.BigDecimal;
+
 public interface GoodsInfoMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -16,4 +18,6 @@ public interface GoodsInfoMapper {
     int updateByPrimaryKey(GoodsInfo record);
 
     int reduceInventory(Long goodsId, Integer buyNum);
+
+    BigDecimal selectGoodsPrice(Long goodsId);
 }

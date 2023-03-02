@@ -9,8 +9,8 @@
         <module name="hsd-commons" />
         <module name="hsd-user-service" />
         <module name="hsd-goods-service" />
-        <module name="hsd-eureka-service" />
         <module name="hsd-orders-service" />
+        <module name="hsd-eureka-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

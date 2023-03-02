@@ -7,6 +7,7 @@ public enum Code {
     OK("10000","请求成功"),
     ERROR("10001","请求失败"),
     NO_LOGIN("10002","请先登录"),
+    NOT_IN_STOCK("10003","库存不足"),
     NO_CONFIRM_ORDERS("11000","没有确认订单");
 
     private String code;

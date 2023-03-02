@@ -5,6 +5,7 @@ import com.hsd.service.GoodsInfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 
 /**
  * @ClassName GoodsInfoServiceImpl
@@ -27,5 +28,15 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     public int reduceInventory(Long goodsId, Integer buyNum) {
         //根据商品id减少库存
         return goodsInfoMapper.reduceInventory(goodsId,buyNum);
+    }
+
+    /**
+     * 查询商品价格
+     * @param goodsId 商品id
+     * @return {@link BigDecimal} 查询到的商品id
+     */
+    @Override
+    public BigDecimal selectGoodsPrice(Long goodsId) {
+        return goodsInfoMapper.selectGoodsPrice(goodsId);
     }
 }

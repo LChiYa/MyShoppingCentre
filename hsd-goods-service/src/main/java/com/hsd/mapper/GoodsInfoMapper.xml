@@ -26,6 +26,13 @@
         from g_goods_info
         where id = #{id,jdbcType=BIGINT}
     </select>
+
+    <!-- 查询商品价格 开始 -->
+    <select id="selectGoodsPrice" resultType="java.math.BigDecimal">
+        select price from g_goods_info where id = #{goodsId}
+    </select>
+    <!-- 查询商品价格 结束 -->
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from g_goods_info
@@ -123,7 +130,7 @@
 
     <!-- 根据商品id减少库存 开始 -->
     <update id="reduceInventory">
-        update g_goods_info set store - #{buyNum} and store >= #{buyNum} where id = #{goodsId}
+        update g_goods_info set store = store - #{buyNum} where id = #{goodsId} and store >= #{buyNum}
     </update>
     <!-- 根据商品id减少库存 结束 -->
 

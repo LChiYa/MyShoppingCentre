@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("UserService")
 public interface getUserId {
     @GetMapping("/getUserId")
-    JsonResult<Object> getId(@RequestParam String token);
+    JsonResult<Long> getId(@RequestParam String token);
 }
