@@ -99,6 +99,76 @@
     </select>
   <!-- 查询商品的有图评价 结束 -->
 
+  <!-- 根据商品id统计有图评价的条数 -->
+  <select id="countEvaluateInfoImg" resultType="java.lang.Long">
+    select
+        count(e.id)
+    from
+        g_evaluate
+    as
+        e
+    inner join
+        (select evaluate_id from g_evaluate_img group by evaluate_id)
+    as
+        img
+    on
+        e.id = img.evaluate_id
+    where
+        goods_id = #{goodsId}
+  </select>
+
+
+  <resultMap id="BaseResultMapImg" type="com.hsd.model.Evaluate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <collection property="evaluateImg"
+                ofType="com.hsd.model.EvaluateImg"
+    >
+      <id column="eiid" property="id"/>
+      <result column="image_url" property="imageUrl"/>
+    </collection>
+  </resultMap>
+
+  <!-- 查询带图评价 开始 -->
+  <select id="findAllProductReviewsByGoodsIdImg" resultMap="BaseResultMapImg">
+    select
+        e.*,ei.image_url,ei.id as eiid,u.phone,u.nick_name,ui.head_portrait
+    from
+        g_evaluate
+    as
+        e
+    inner join
+        g_evaluate_img
+    as
+        ei
+    on
+        e.id = ei.evaluate_id
+    left join
+        u_user
+    as
+        u
+    on
+        e.user_id = u.id
+    inner join
+        u_user_info
+    as
+        ui
+    on
+        u.id = ui.user_id
+    where
+        goods_id = #{goodsId}
+    limit
+        ${skipNum},${pageSize}
+  </select>
+  <!-- 查询带图评价 结束 -->
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from g_evaluate
     where id = #{id,jdbcType=BIGINT}

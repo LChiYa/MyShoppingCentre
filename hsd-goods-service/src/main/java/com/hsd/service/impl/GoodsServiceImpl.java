@@ -33,14 +33,25 @@ public class GoodsServiceImpl implements GoodsService {
         public PageBean<List<Evaluate>> selectEvaluateByGoodsId(Long pageNo, Long pageSize, String evaluationLevel, String goodsId) {
         //创建PageBean对象
         PageBean pageBean = new PageBean<>(pageNo,pageSize);
-        //先根据商品id查询查询出商品评价一共与多少条评价
-        Long totalNum = evaluateMapper.countEvaluateInfo(goodsId,evaluationLevel);
-        //根据总评价信息计算出有几页
-        pageBean.setTotalNum(totalNum);
-        //查询评价信息
-        List<Evaluate> listPageBean = evaluateMapper.findAllProductReviewsByGoodsId(pageBean.getSkipNum(),pageBean.getPageSize(),evaluationLevel,goodsId);
-        //设置PageBean中的data
-        pageBean.setData(listPageBean);
+        if (evaluationLevel.equals("img")) {
+            //先根据商品id查询查询出有图商品评价一共与多少条评价
+            Long totalNum = evaluateMapper.countEvaluateInfoImg(goodsId);
+            //根据总评价信息计算出有几页
+            pageBean.setTotalNum(totalNum);
+            //查询有图评价信息
+            List<Evaluate> listPageBean = evaluateMapper.findAllProductReviewsByGoodsIdImg(pageBean.getSkipNum(),pageBean.getPageSize(),goodsId);
+            //将查询到的数据设置到PageBean的data中并返回
+            pageBean.setData(listPageBean);
+        } else {
+            //先根据商品id查询查询出商品评价一共与多少条评价
+            Long totalNum = evaluateMapper.countEvaluateInfo(goodsId,evaluationLevel);
+            //根据总评价信息计算出有几页
+            pageBean.setTotalNum(totalNum);
+            //查询评价信息
+            List<Evaluate> listPageBean = evaluateMapper.findAllProductReviewsByGoodsId(pageBean.getSkipNum(),pageBean.getPageSize(),evaluationLevel,goodsId);
+            //将查询到的数据设置到PageBean的data中并返回
+            pageBean.setData(listPageBean);
+        }
         return pageBean;
     }
 }

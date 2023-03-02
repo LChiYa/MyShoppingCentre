@@ -22,4 +22,8 @@ public interface EvaluateMapper {
     Long countEvaluateInfo(String goodsId, String evaluationLevel);
 
     List<Evaluate> findAllProductReviewsByGoodsId(Long skipNum, Long pageSize, String evaluationLevel, String goodsId);
+
+    Long countEvaluateInfoImg(String goodsId);
+
+    List<Evaluate> findAllProductReviewsByGoodsIdImg(Long skipNum, Long pageSize, String goodsId);
 }
