@@ -1,5 +1,7 @@
 package com.hsd.service;
 
+import com.hsd.JsonResult;
+
 import java.math.BigDecimal;
 
 /**
@@ -8,6 +10,6 @@ import java.math.BigDecimal;
  * @Author:
  */
 public interface OrdersService {
-    Integer addOrdersAndOrderDetails(Long result, Long goodsId, Integer buyNum, BigDecimal objectJsonResultResult);
+    JsonResult<Object> addOrdersAndOrderDetails(Long result, Long goodsId, Integer buyNum);
 
 }

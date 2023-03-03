@@ -1,6 +1,7 @@
 package com.hsd.service;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * @ClassName GoodsInfoService
@@ -11,6 +12,5 @@ public interface GoodsInfoService {
     //减库存
     int reduceInventory(Long goodsId, Integer buyNum);
 
-    BigDecimal selectGoodsPrice(Long goodsId);
-
+    Map<String, Object> selectGoodsPriceAndStore(Long goodsId);
 }

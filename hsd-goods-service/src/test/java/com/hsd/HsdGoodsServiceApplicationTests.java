@@ -1,20 +1,33 @@
 package com.hsd;
 
 import com.hsd.mapper.EvaluateMapper;
+import com.hsd.mapper.GoodsInfoMapper;
+import com.hsd.service.GoodsInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Map;
 
-//@SpringBootTest
+@SpringBootTest
 class HsdGoodsServiceApplicationTests {
 
     @Resource
-    private EvaluateMapper evaluateMapper;
+    private GoodsInfoMapper goodsInfoMapper;
+    @Resource
+    private GoodsInfoService goodsInfoService;
     @Test
     public void contextLoads() {
-//        Long count = evaluateMapper.countEvaluateInfo("1011045");
-//        System.out.println("count = " + count);
+//        BigDecimal bigDecimal = goodsInfoMapper.selectGoodsPrice(1011045L);
+//        Integer integer = goodsInfoMapper.selectGoodsStore(1011045L);
+//        System.out.println("bigDecimal = " + bigDecimal);
+//        System.out.println("integer = " + integer);
+        Map<String, Object> map = goodsInfoService.selectGoodsPriceAndStore(1011045L);
+        BigDecimal price = (BigDecimal) map.get("price");
+        Integer store = (Integer) map.get("store");
+        System.out.println("price = " + price);
+        System.out.println("store = " + store);
     }
 
 }

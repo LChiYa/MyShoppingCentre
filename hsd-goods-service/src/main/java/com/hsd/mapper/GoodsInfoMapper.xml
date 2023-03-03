@@ -33,6 +33,12 @@
     </select>
     <!-- 查询商品价格 结束 -->
 
+    <!-- 查询商品库存 开始 -->
+    <select id="selectGoodsStore" resultType="java.lang.Integer">
+        select store from g_goods_info where id = #{goodsId}
+    </select>
+    <!-- 查询商品库存 结束 -->
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from g_goods_info

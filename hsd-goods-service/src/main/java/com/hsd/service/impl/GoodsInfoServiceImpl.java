@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName GoodsInfoServiceImpl
@@ -14,7 +16,6 @@ import java.math.BigDecimal;
  */
 @Service
 public class GoodsInfoServiceImpl implements GoodsInfoService {
-
     @Resource
     private GoodsInfoMapper goodsInfoMapper;
 
@@ -31,12 +32,27 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     }
 
     /**
-     * 查询商品价格
+     * 根据商品id查询商品价格和库存
      * @param goodsId 商品id
-     * @return {@link BigDecimal} 查询到的商品id
+     * @return {@link Map} 存价格和库存 <{@link String}, {@link Object}>
      */
     @Override
-    public BigDecimal selectGoodsPrice(Long goodsId) {
-        return goodsInfoMapper.selectGoodsPrice(goodsId);
+    public Map<String, Object> selectGoodsPriceAndStore(Long goodsId) {
+        //创建Map集合
+        HashMap<String, Object> map = new HashMap<>();
+        //查询商品价格
+        BigDecimal price = goodsInfoMapper.selectGoodsPrice(goodsId);
+        //查询商品库存
+        Integer store = goodsInfoMapper.selectGoodsStore(goodsId);
+        //进入if表示价格或者库存没有查到
+        if (price == null || store == null){
+            map.put("error","价格或者库存没有查到,请检查数据库是否存在数据");
+            return map;
+        }
+        //到这里表示查询到价格和库存 将价格和库存存入Map集合中
+        map.put("price",price);
+        map.put("store",store);
+        return map;
     }
+
 }

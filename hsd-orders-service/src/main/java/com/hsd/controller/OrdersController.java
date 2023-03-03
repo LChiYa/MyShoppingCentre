@@ -29,8 +29,7 @@ public class OrdersController {
 
     @Resource
     private getUserId getUserId;
-    @Resource
-    private reduceInventory reduceInventory;
+
 
     @Resource
     private OrdersService ordersService;
@@ -43,21 +42,15 @@ public class OrdersController {
      * @return {@link Object}
      */
     @RequestMapping("/addOrders")
-    public Object addOrders(String token,Long goodsId,Integer buyNum){
+    public JsonResult<Object> addOrders(String token,Long goodsId,Integer buyNum){
         //获取登录过用户的id
         JsonResult<Long> jsonResult = getUserId.getId(token);
         //判断用户是否登录
         if (jsonResult.getCode().equals(Code.NO_LOGIN.getCode())){
             return new JsonResult<Object>(Code.NO_LOGIN,"请先登录");
         }
-        //减库存并返回商品价格
-        JsonResult<BigDecimal> objectJsonResult = reduceInventory.subtractStory(goodsId, buyNum);
-//        Object result = jsonResult.getResult();
-        if (objectJsonResult.getResult() == null){
-            return new JsonResult<Object>(Code.NOT_IN_STOCK,"");
-        }
         //添加订单
-        Integer i = ordersService.addOrdersAndOrderDetails(jsonResult.getResult(),goodsId,buyNum,objectJsonResult.getResult());
-        return new JsonResult<BigDecimal>(Code.OK,objectJsonResult.getResult());
+        JsonResult<Object> jsOb = ordersService.addOrdersAndOrderDetails(jsonResult.getResult(),goodsId,buyNum);
+        return new JsonResult<Object>(Code.OK,jsOb);
     }
 }

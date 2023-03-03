@@ -96,6 +96,9 @@
         #{orderNo,jdbcType=CHAR},
       </if>
     </trim>
+    <selectKey resultType="id" keyProperty="long" keyColumn="id" order="AFTER">
+      select @@identity
+    </selectKey>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.hsd.model.Orders">
     update o_orders

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * @ClassName reduceInventory
@@ -15,5 +16,5 @@ import java.math.BigDecimal;
 @FeignClient("GoodsService")
 public interface reduceInventory {
     @GetMapping("/reduceInventory")
-    JsonResult<BigDecimal> subtractStory(@RequestParam Long goodsId,@RequestParam Integer buyNum);
+    JsonResult<Map<String,Object>> subtractStory(@RequestParam Long goodsId, @RequestParam Integer buyNum);
 }

@@ -20,4 +20,6 @@ public interface GoodsInfoMapper {
     int reduceInventory(Long goodsId, Integer buyNum);
 
     BigDecimal selectGoodsPrice(Long goodsId);
+
+    Integer selectGoodsStore(Long goodsId);
 }
