@@ -100,4 +100,20 @@ public class Evaluate {
     public void setEvaluateImg(List<EvaluateImg> evaluateImg) {
         this.evaluateImg = evaluateImg;
     }
+
+    @Override
+    public String toString() {
+        return "Evaluate{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", score=" + score +
+                ", userId=" + userId +
+                ", goodsId=" + goodsId +
+                ", time='" + time + '\'' +
+                ", phone='" + phone + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", headPortrait='" + headPortrait + '\'' +
+                ", evaluateImg=" + evaluateImg +
+                '}';
+    }
 }

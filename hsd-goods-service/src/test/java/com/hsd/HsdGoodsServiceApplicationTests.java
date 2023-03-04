@@ -2,8 +2,10 @@ package com.hsd;
 
 import com.hsd.mapper.EvaluateMapper;
 import com.hsd.mapper.GoodsInfoMapper;
+import com.hsd.model.Evaluate;
 import com.hsd.model.GoodsInfo;
 import com.hsd.service.GoodsInfoService;
+import com.hsd.service.GoodsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,22 +21,19 @@ class HsdGoodsServiceApplicationTests {
     private GoodsInfoMapper goodsInfoMapper;
     @Resource
     private GoodsInfoService goodsInfoService;
+
+    @Resource
+    private GoodsService goodsService;
+
+    @Resource
+    private EvaluateMapper evaluateMapper;
     @Test
     public void contextLoads() {
-//        BigDecimal bigDecimal = goodsInfoMapper.selectGoodsPrice(1011045L);
-//        Integer integer = goodsInfoMapper.selectGoodsStore(1011045L);
-//        System.out.println("bigDecimal = " + bigDecimal);
-//        System.out.println("integer = " + integer);
-//        Map<String, Object> map = goodsInfoService.selectGoodsPriceAndStore(1011045L);
-//        BigDecimal price = (BigDecimal) map.get("price");
-//        Integer store = (Integer) map.get("store");
-//        System.out.println("price = " + price);
-//        List<GoodsInfo> list = goodsInfoMapper.selectGoodsPrice(1011045L);
-//        for (GoodsInfo goodsInfo : list) {
-////            System.out.println("goodsInfo = " + goodsInfo);
-//            goodsInfo.get
-//        }
-//        System.out.println("store = " + store);
+//        Long a = evaluateMapper.countEvaluateInfo(1011045L, "A");
+//        System.out.println("统计 = " + a);
+        PageBean<List<Evaluate>> listPageBean = goodsService.selectEvaluateByGoodsId(1L, 5L, "", 1011045L);
+        List<Evaluate> data = listPageBean.getData();
+        System.out.println("data = " + data);
     }
 
 }
