@@ -28,16 +28,11 @@
     </select>
 
     <!-- 查询商品价格 开始 -->
-    <select id="selectGoodsPrice" resultType="java.math.BigDecimal">
-        select price from g_goods_info where id = #{goodsId}
+    <select id="selectGoodsPriceAndStore" resultType="com.hsd.model.GoodsInfo">
+        select price,store from g_goods_info where id = #{goodsId}
     </select>
     <!-- 查询商品价格 结束 -->
 
-    <!-- 查询商品库存 开始 -->
-    <select id="selectGoodsStore" resultType="java.lang.Integer">
-        select store from g_goods_info where id = #{goodsId}
-    </select>
-    <!-- 查询商品库存 结束 -->
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete

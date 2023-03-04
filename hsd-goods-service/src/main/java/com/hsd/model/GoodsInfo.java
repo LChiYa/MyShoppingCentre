@@ -28,6 +28,7 @@ public class GoodsInfo {
 
     private Long version;
 
+
     public Long getId() {
         return id;
     }
@@ -122,5 +123,23 @@ public class GoodsInfo {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return "GoodsInfo{" +
+                "id=" + id +
+                ", goodsDescribe='" + goodsDescribe + '\'' +
+                ", store=" + store +
+                ", createTime=" + createTime +
+                ", price=" + price +
+                ", cost=" + cost +
+                ", publishStatus=" + publishStatus +
+                ", auditStatus=" + auditStatus +
+                ", productionDate=" + productionDate +
+                ", shelfLife=" + shelfLife +
+                ", goodsId=" + goodsId +
+                ", version=" + version +
+                '}';
     }
 }

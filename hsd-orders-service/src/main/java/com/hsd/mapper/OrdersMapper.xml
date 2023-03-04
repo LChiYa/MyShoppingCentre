@@ -39,9 +39,6 @@
   <insert id="insertSelective" parameterType="com.hsd.model.Orders">
     insert into o_orders
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="ordersMoney != null">
         orders_money,
       </if>
@@ -68,9 +65,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="ordersMoney != null">
         #{ordersMoney,jdbcType=DECIMAL},
       </if>
@@ -96,7 +90,7 @@
         #{orderNo,jdbcType=CHAR},
       </if>
     </trim>
-    <selectKey resultType="id" keyProperty="long" keyColumn="id" order="AFTER">
+    <selectKey resultType="Long" keyProperty="id" keyColumn="id" order="AFTER">
       select @@identity
     </selectKey>
   </insert>

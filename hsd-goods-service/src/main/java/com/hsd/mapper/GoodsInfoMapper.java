@@ -1,8 +1,10 @@
 package com.hsd.mapper;
 
+import com.hsd.model.Goods;
 import com.hsd.model.GoodsInfo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface GoodsInfoMapper {
     int deleteByPrimaryKey(Long id);
@@ -19,7 +21,6 @@ public interface GoodsInfoMapper {
 
     int reduceInventory(Long goodsId, Integer buyNum);
 
-    BigDecimal selectGoodsPrice(Long goodsId);
+    List<GoodsInfo> selectGoodsPriceAndStore(Long goodsId);
 
-    Integer selectGoodsStore(Long goodsId);
 }

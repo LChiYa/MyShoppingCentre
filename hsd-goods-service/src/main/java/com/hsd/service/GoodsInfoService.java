@@ -1,6 +1,9 @@
 package com.hsd.service;
 
+import com.hsd.model.GoodsInfo;
+
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,5 +15,5 @@ public interface GoodsInfoService {
     //减库存
     int reduceInventory(Long goodsId, Integer buyNum);
 
-    Map<String, Object> selectGoodsPriceAndStore(Long goodsId);
+    List<GoodsInfo> selectGoodsPriceAndStore(Long goodsId);
 }

@@ -1,11 +1,13 @@
 package com.hsd.service.remInterface;
 
 import com.hsd.JsonResult;
+import com.hsd.model.GoodsInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,5 @@ import java.util.Map;
 @FeignClient("GoodsService")
 public interface reduceInventory {
     @GetMapping("/reduceInventory")
-    JsonResult<Map<String,Object>> subtractStory(@RequestParam Long goodsId, @RequestParam Integer buyNum);
+    JsonResult<Object> subtractStory(@RequestParam Long goodsId, @RequestParam Integer buyNum);
 }
